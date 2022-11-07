@@ -18,11 +18,15 @@ public class CopiaServiceImp implements CopiaService {
 
 	@Override
 	public List<Copia> getAllCopias(Long isbn) {
-		List<Copia> listaCopias = copiaRepositorio.findAllById(isbn);
-		if(listaCopias.isEmpty()) {
-			return null;
+		List<Copia> listaCopias = this.copiaRepositorio.findAll();
+		List<Copia> listaCopiasFinal = new ArrayList<>();
+		
+		for(Copia c : listaCopias) {
+			if(c.getLibro().getIsbn().equals(isbn)) {
+				listaCopiasFinal.add(c);
+			}
 		}
-		return listaCopias;
+		return listaCopiasFinal;
 
 	}
 
