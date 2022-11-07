@@ -46,6 +46,9 @@ public class LectorServiceImp implements LectorService{
 	@Override
 	public void prestar(Long noSocio, Long idCopia) {
 		
+		
+		
+		// Generamos el prestamo
 		Copia copia = copiaRepositorio.findById(idCopia).orElse(null);
 		//copia.setEstado("prestada");
 		
@@ -54,7 +57,7 @@ public class LectorServiceImp implements LectorService{
 		
 		LocalDate finFecha = hoy.plusDays(30);
 		
-		Prestamo prestamo = new Prestamo(finFecha, finFecha, lector, copia);
+		Prestamo prestamo = new Prestamo(hoy, finFecha, lector, copia);
 		
 		//this.copiaRepositorio.save(copia);
 		this.prestamoRepositorio.save(prestamo);

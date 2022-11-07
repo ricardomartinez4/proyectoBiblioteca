@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.indra.biblioteca.model.Copia;
 import com.indra.biblioteca.model.Lector;
 import com.indra.biblioteca.model.Libro;
+import com.indra.biblioteca.model.Prestamo;
 import com.indra.biblioteca.service.CopiaService;
 import com.indra.biblioteca.service.LectorService;
 import com.indra.biblioteca.service.LibroService;
+import com.indra.biblioteca.service.PrestamoService;
 
 
 
@@ -30,6 +32,9 @@ public class LibroController {
 	
 	@Autowired
 	private CopiaService copiaService;
+	
+	@Autowired
+	private PrestamoService prestamoService;
 	
 	@GetMapping(path={""})
 	public String viewHomePage(Model model){
@@ -57,6 +62,7 @@ public class LibroController {
 	public String FormPrestar(@PathVariable(value="idCopia") Long isbn, Model model) {
 		Copia copia = copiaService.getCopiaById(isbn);
 		
+		
 		model.addAttribute("copia", copia);
 		model.addAttribute("idCopia", isbn);
 		
@@ -70,7 +76,10 @@ public class LibroController {
 	public String prestar(@PathVariable(value="copia") Long idCopia, 
 			@PathVariable(value="lector") Long idLector,
 			Model model) {
-		lectorService.prestar(idLector, idCopia);
+		List<Prestamo> listaPrestamos = this.prestamoService.getAllPrestamos(idLector);
+		if(listaPrestamos.size() < 3) {
+			lectorService.prestar(idLector, idCopia);
+		}
 		return "redirect:/";
 	}
 	
