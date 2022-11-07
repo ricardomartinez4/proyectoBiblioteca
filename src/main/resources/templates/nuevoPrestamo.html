@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Prestamo</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+	<h2>Prestamo</h2>
+	<h3 th:text="${libro.titulo}"></h3>
+	<form></form>
+	<div class = "container">
+		<table class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<td>Numero de socio</td>
+					<td>Nombre</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="lector : ${lectores}">
+					<td th:text="${lector.nSocio}"></td>
+					<td th:text="${lector.nombre}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

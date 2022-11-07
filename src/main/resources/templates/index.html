@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Biblioteca</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+	<h2>Biblioteca</h2>
+	<span>Gestión de libros</span>
+	<hr>
+	<div class="container">
+		<table class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<td>isbn</td>
+					<td>Año</td>
+					<td>Editorial</td>
+					<td>Tipo</td>
+					<td>Titulo</td>
+					<td>Autor</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="libro : ${listLibros}">
+					<td th:text="${libro.isbn}"></td>
+					<td th:text="${libro.anyo}"></td>
+					<td th:text="${libro.editorial}"></td>
+					<td th:text="${libro.tipo}"></td>
+					<td th:text="${libro.titulo}"></td>
+					<td th:text="${libro.autor}"></td>
+					<td><a class="btn btn-primary" th:href="@{/copias/{isbn}(isbn=${libro.isbn})}">Copias</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
