@@ -56,9 +56,6 @@ public class LectorServiceImp implements LectorService{
 		
 		Prestamo prestamo = new Prestamo(finFecha, finFecha, lector, copia);
 		
-
-		
-		
 		//this.copiaRepositorio.save(copia);
 		this.prestamoRepositorio.save(prestamo);
 		

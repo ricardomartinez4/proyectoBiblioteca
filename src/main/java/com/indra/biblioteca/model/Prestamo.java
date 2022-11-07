@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class Prestamo {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idPrestamo;
 	
 	@Column
