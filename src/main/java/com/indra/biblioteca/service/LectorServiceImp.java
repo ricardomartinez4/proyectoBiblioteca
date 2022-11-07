@@ -47,20 +47,20 @@ public class LectorServiceImp implements LectorService{
 	public void prestar(Long noSocio, Long idCopia) {
 		
 		Copia copia = copiaRepositorio.findById(idCopia).orElse(null);
-		copia.setEstado("prestada");
+		//copia.setEstado("prestada");
+		
 		Lector lector = lectorRepositorio.findById(noSocio).orElse(null);
 		LocalDate hoy = LocalDate.now();
+		
 		LocalDate finFecha = hoy.plusDays(30);
-		Prestamo prestamo = new Prestamo();
+		
+		Prestamo prestamo = new Prestamo(finFecha, finFecha, lector, copia);
+		
+
 		
 		
-		prestamo.setCopia(copia);
-		prestamo.setInicio(hoy);
-		prestamo.setLector(lector);
-		prestamo.setFin(finFecha);
-		
-		copiaRepositorio.save(copia);
-		prestamoRepositorio.save(prestamo);
+		//this.copiaRepositorio.save(copia);
+		this.prestamoRepositorio.save(prestamo);
 		
 	}
 

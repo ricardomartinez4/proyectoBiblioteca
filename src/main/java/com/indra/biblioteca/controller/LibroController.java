@@ -40,6 +40,8 @@ public class LibroController {
 	
 	@GetMapping("/copias/{isbn}")
 	public String showForm(@PathVariable(value="isbn") Long isbn,Model model) {
+		
+		
 		Libro libro = libroService.getLibroById(isbn);
 		List<Copia> copias = copiaService.getAllCopias(isbn);
 		List<Lector> lectores = lectorService.getAllLectores();
@@ -54,21 +56,25 @@ public class LibroController {
 	@GetMapping("/nuevoPrestamo/{idCopia}")
 	public String FormPrestar(@PathVariable(value="idCopia") Long isbn, Model model) {
 		Copia copia = copiaService.getCopiaById(isbn);
+		
 		model.addAttribute("copia", copia);
+		model.addAttribute("idCopia", isbn);
+		
 		List<Lector> lectores = lectorService.getAllLectores();
 		model.addAttribute("lectores", lectores);
+		
 		return "nuevoPrestamo";
 	}
 	
-	@PostMapping("/prestar/{idCopia}")
-	public String prestarCopia(@RequestParam("nSocio") Long nSocio,
-								@PathVariable (value="idCopia") Long idCopia,
-								Model model) {
-		model.addAttribute("nSocio", nSocio);
-		lectorService.prestar(nSocio, idCopia);
-		
-		return "redirect:/copias";
+	@GetMapping("/prestar/{copia}/{lector}")
+	public String prestar(@PathVariable(value="copia") Long idCopia, 
+			@PathVariable(value="lector") Long idLector,
+			Model model) {
+		lectorService.prestar(idLector, idCopia);
+		return "redirect:/";
 	}
+	
+	
 	
 	
 	

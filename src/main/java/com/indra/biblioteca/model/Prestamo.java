@@ -4,7 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 public class Prestamo {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPrestamo;
 	
 	@Column
@@ -33,6 +35,20 @@ public class Prestamo {
 	@OneToOne
 	@JoinColumn(name="id")
 	private Copia copia;
+	
+	public Prestamo() {
+		// TODO Auto-generated constructor stub
+	}
+	
+
+	public Prestamo(LocalDate inicio, LocalDate fin, Lector lector, Copia copia) {
+		super();
+		this.inicio = inicio;
+		this.fin = fin;
+		this.lector = lector;
+		this.copia = copia;
+	}
+
 
 	public Long getIdPrestamo() {
 		return idPrestamo;

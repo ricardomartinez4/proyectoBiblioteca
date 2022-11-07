@@ -24,34 +24,13 @@
 				<tr th:each="copia : ${copias}">
 					<td th:text="${copia.id}"></td>
 					<td th:text="${copia.estado}"></td>
-					<form method="POST" action="@{/prestar/{id}(id=${copia.id})}">
-					<td><input type="number" th:field="*{nSocio}"></td>
-					<td th:if="${copia.estado == 'biblioteca'}"><input
-						class="btn btn-primary" type="submit" th:value="Prestar"></td>
-					</form>
-				</tr>
-			</tbody>
-		</table>
-
-	</div>
-	<div class="container">
-		<h2>Lectores dados de alta</h2>
-		<table class="table table-striped table-responsive-md">
-			<thead>
-				<tr>
-					<td>Numero de socio</td>
-					<td>Nombre</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="lector : ${lectores}">
-					<td th:text="${lector.nSocio}"></td>
-					<td th:text="${lector.nombre}"></td>
+					<td th:if="${copia.estado == 'biblioteca'}">
+					<a class="btn btn-primary" th:href="@{/nuevoPrestamo/{id}(id=${copia.id})}">Prestar</a>
+					</td>
+					
 				</tr>
 			</tbody>
 		</table>
 	</div>
-
-
 </body>
 </html>

@@ -22,7 +22,7 @@ public class PrestamoServiceImp implements PrestamoService{
 
 	@Override
 	public void savePrestamo(Prestamo prestamo) {
-		prestamoRepository.save(prestamo);
+		this.prestamoRepository.save(prestamo);
 		
 	}
 

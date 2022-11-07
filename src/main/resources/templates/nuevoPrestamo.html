@@ -8,15 +8,28 @@
 </head>
 <body>
 	<h2>Prestamo</h2>
+	<h4>ID de la copia: <span th:text="${idCopia}"></span></h4>
+	<div class="container">
+		<h2>Lectores dados de alta</h2>
+		<table class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<td>Numero de socio</td>
+					<td>Nombre</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="lector : ${lectores}">
+					<td th:text="${lector.nSocio}"></td>
+					<td th:text="${lector.nombre}"></td>
+					<td th:if="${lector.multa == null}">
+					<a class="btn btn-primary" th:href="@{/prestar/{copia}/{lector}(copia = ${idCopia}, lector = ${lector.nSocio})}">Prestar</a>
+					
+					</td>
 
-	<form action="#" th:action="@{/prestar/{id}(id=${copia.id})}"
-		method="POST" >
-		<label>Número de socio</label> <input type="text" >
-		<button type="submit" class="btn btn-info col-2">Prestar
-			ejemplar</button>
-	</form>
-
-
-
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>
