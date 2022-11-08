@@ -8,5 +8,5 @@ public interface MultaService {
 	List<Multa> getAllMultas();
 	void saveMulta(Multa multa);
 	Multa getMultaById(long id);
-	void deleteMultaById(long id);
+	void deleteMultaById(Multa multa);
 }

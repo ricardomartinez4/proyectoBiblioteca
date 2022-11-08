@@ -50,6 +50,11 @@ public class PrestamoServiceImp implements PrestamoService{
 		return listaPrestamosFinal;
 	}
 
+	@Override
+	public List<Prestamo> getAllPrestamos() {
+		return this.prestamoRepository.findAll();
+	}
+
 	
 
 }

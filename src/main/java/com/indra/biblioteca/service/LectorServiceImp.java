@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.indra.biblioteca.model.Copia;
 import com.indra.biblioteca.model.Lector;
+import com.indra.biblioteca.model.Multa;
 import com.indra.biblioteca.model.Prestamo;
 import com.indra.biblioteca.repository.CopiaRepository;
 import com.indra.biblioteca.repository.LectorRepository;
+import com.indra.biblioteca.repository.MultaRepository;
 import com.indra.biblioteca.repository.PrestamoRepository;
 
 @Service
@@ -26,6 +28,9 @@ public class LectorServiceImp implements LectorService {
 
 	@Autowired
 	private PrestamoRepository prestamoRepositorio;
+	
+	@Autowired
+	private MultaRepository multaRepositorio;
 
 	@Override
 	public List<Lector> getAllLectores() {
@@ -73,5 +78,18 @@ public class LectorServiceImp implements LectorService {
 		}
 
 	}
+
+	@Override
+	public void editarLector(Lector lector) {
+		this.lectorRepositorio.save(lector);
+		
+	}
+
+	
+
+	
+	
+	
+
 
 }

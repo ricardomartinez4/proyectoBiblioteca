@@ -1,5 +1,6 @@
 package com.indra.biblioteca.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.indra.biblioteca.model.Copia;
 import com.indra.biblioteca.model.Lector;
 import com.indra.biblioteca.model.Libro;
+import com.indra.biblioteca.model.Multa;
 import com.indra.biblioteca.model.Prestamo;
 import com.indra.biblioteca.service.CopiaService;
 import com.indra.biblioteca.service.LectorService;
 import com.indra.biblioteca.service.LibroService;
+import com.indra.biblioteca.service.MultaService;
 import com.indra.biblioteca.service.PrestamoService;
 
 
@@ -36,10 +39,58 @@ public class LibroController {
 	@Autowired
 	private PrestamoService prestamoService;
 	
+	@Autowired
+	private MultaService multaService;
+	
+	
 	@GetMapping(path={""})
 	public String viewHomePage(Model model){
 		List<Libro> libros = libroService.getAllLibros();
 		model.addAttribute("listLibros", libros);
+		
+		// buscar prestamos para generar multas
+		
+		LocalDate hoy = LocalDate.now();
+		
+		List<Prestamo> losPrestamos = this.prestamoService.getAllPrestamos();
+		
+		for(Prestamo p : losPrestamos) {
+			if(p.getFin().isBefore(hoy)) {
+				
+				LocalDate finMulta = hoy.plusDays(2);
+				Multa multa = new Multa(hoy,finMulta);
+				
+				this.multaService.saveMulta(multa);
+				Lector lectorAMultar = p.getLector();
+				lectorAMultar.setMulta(multa);
+				
+				this.lectorService.editarLector(lectorAMultar);
+			}
+		}
+		
+		// buscamos en las multas para ver si han caducado
+		
+		List<Lector> listaLectores = this.lectorService.getAllLectores();
+		List<Multa> listaMultas = this.multaService.getAllMultas();
+		
+		for(Multa m : listaMultas) {
+			
+			if(m.getFin().isBefore(hoy)) {
+				
+				for(Lector l : listaLectores) {
+					
+					if(l.getMulta()!=null) {
+						if(l.getMulta().equals(m)) {
+							l.setMulta(null);
+							this.lectorService.editarLector(l);
+							this.multaService.deleteMultaById(m);
+						}
+					}
+				}
+			}
+		}
+		
+		
 		return "index";
 	}
 	
@@ -80,6 +131,7 @@ public class LibroController {
 		if(listaPrestamos.size() < 3) {
 			lectorService.prestar(idLector, idCopia);
 		}
+		
 		return "redirect:/";
 	}
 	

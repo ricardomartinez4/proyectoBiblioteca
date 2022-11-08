@@ -22,6 +22,41 @@ public class Multa {
 	
 	@Column
 	private LocalDate fin;
+
+	public Long getIdMulta() {
+		return idMulta;
+	}
+	public Multa() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void setIdMulta(Long idMulta) {
+		this.idMulta = idMulta;
+	}
+
+	public LocalDate getInicio() {
+		return inicio;
+	}
+
+	public void setInicio(LocalDate inicio) {
+		this.inicio = inicio;
+	}
+
+	public LocalDate getFin() {
+		return fin;
+	}
+
+	public void setFin(LocalDate fin) {
+		this.fin = fin;
+	}
+
+	public Multa(LocalDate inicio, LocalDate fin) {
+		super();
+		this.inicio = inicio;
+		this.fin = fin;
+	}
+	
+	
 	
 	
 }
