@@ -13,4 +13,6 @@ public interface LectorService {
 	Lector getLectorById(Long id);
 	
 	void prestar(Long noSocio, Long idCopia);
+	
+	void devolver(Long idCopia);
 }

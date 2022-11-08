@@ -27,6 +27,9 @@
 					<td th:if="${copia.estado == 'biblioteca'}">
 					<a class="btn btn-primary" th:href="@{/nuevoPrestamo/{id}(id=${copia.id})}">Prestar</a>
 					</td>
+					<td th:if="${copia.estado == 'prestada'}">
+					<a class="btn btn-primary" th:href="@{/devolverEjemplar/{id}(id=${copia.id})}">Devolver</a>
+					</td>
 					
 				</tr>
 			</tbody>

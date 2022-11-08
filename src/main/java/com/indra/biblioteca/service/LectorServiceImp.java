@@ -16,14 +16,14 @@ import com.indra.biblioteca.repository.LectorRepository;
 import com.indra.biblioteca.repository.PrestamoRepository;
 
 @Service
-public class LectorServiceImp implements LectorService{
-	
+public class LectorServiceImp implements LectorService {
+
 	@Autowired
 	private LectorRepository lectorRepositorio;
-	
-	@Autowired 
+
+	@Autowired
 	private CopiaRepository copiaRepositorio;
-	
+
 	@Autowired
 	private PrestamoRepository prestamoRepositorio;
 
@@ -33,42 +33,45 @@ public class LectorServiceImp implements LectorService{
 		return this.lectorRepositorio.findAll();
 	}
 
-	
-
 	@Override
 	public Lector getLectorById(Long id) {
 		Lector lector = this.lectorRepositorio.findById(id).orElse(null);
 		return lector;
 	}
 
-	
-
 	@Override
 	public void prestar(Long noSocio, Long idCopia) {
-		
-		
-		
+
 		// Generamos el prestamo
 		Copia copia = copiaRepositorio.findById(idCopia).orElse(null);
-		//copia.setEstado("prestada");
-		
+		copia.setEstado("prestada");
+
 		Lector lector = lectorRepositorio.findById(noSocio).orElse(null);
 		LocalDate hoy = LocalDate.now();
-		
+
 		LocalDate finFecha = hoy.plusDays(30);
-		
+
 		Prestamo prestamo = new Prestamo(hoy, finFecha, lector, copia);
-		
-		//this.copiaRepositorio.save(copia);
+
+		this.copiaRepositorio.save(copia);
 		this.prestamoRepositorio.save(prestamo);
-		
+
 	}
 
+	@Override
+	public void devolver(Long idCopia) {
 
+		Copia copia = copiaRepositorio.findById(idCopia).orElse(null);
+		copia.setEstado("biblioteca");
+		
+		List<Prestamo> losPrestamos = this.prestamoRepositorio.findAll();
 
-	
+		for (Prestamo p : losPrestamos) {
+			if (p.getCopia().getId().equals(idCopia)) {
+				prestamoRepositorio.delete(p);
+			}
+		}
 
-
-
+	}
 
 }

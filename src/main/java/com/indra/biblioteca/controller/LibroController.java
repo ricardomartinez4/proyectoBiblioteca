@@ -83,7 +83,13 @@ public class LibroController {
 		return "redirect:/";
 	}
 	
-	
+	@GetMapping("/devolverEjemplar/{idCopia}")
+	public String DevolverEjemplarPage(@PathVariable(value="idCopia") Long isbn, Model model) {
+		
+		lectorService.devolver(isbn);
+		
+		return "redirect:/";
+	}
 	
 	
 	

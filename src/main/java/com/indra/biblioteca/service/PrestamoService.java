@@ -11,4 +11,5 @@ public interface PrestamoService {
 	Prestamo getPrestamoById(Long id);
 	void deletePrestamoById(Long id);
 	List<Prestamo> getAllPrestamos(Long idLector);
+	
 }
