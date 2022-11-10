@@ -143,7 +143,14 @@ public class LibroController {
 		return "redirect:/";
 	}
 	
-	
+	@GetMapping("/verLectores")
+	public String verLectores(Model model) {
+		
+		List<Lector> lectores = this.lectorService.getAllLectores();
+		model.addAttribute("lectores", lectores);
+		
+		return "verLectores";
+	}
 	
 	
 }
