@@ -48,6 +48,8 @@ public class LibroController {
 		List<Libro> libros = libroService.getAllLibros();
 		model.addAttribute("listLibros", libros);
 		
+		List<Multa> multas = this.multaService.getAllMultas();
+		
 		// buscar prestamos para generar multas
 		
 		LocalDate hoy = LocalDate.now();
@@ -55,16 +57,26 @@ public class LibroController {
 		List<Prestamo> losPrestamos = this.prestamoService.getAllPrestamos();
 		
 		for(Prestamo p : losPrestamos) {
+			
 			if(p.getFin().isBefore(hoy)) {
-				
 				LocalDate finMulta = hoy.plusDays(2);
 				Multa multa = new Multa(hoy,finMulta);
 				
-				this.multaService.saveMulta(multa);
 				Lector lectorAMultar = p.getLector();
-				lectorAMultar.setMulta(multa);
 				
-				this.lectorService.editarLector(lectorAMultar);
+				if(lectorAMultar.getMulta() == null) {
+					
+					this.multaService.saveMulta(multa);
+					lectorAMultar.setMulta(multa);
+					this.lectorService.editarLector(lectorAMultar);
+				}
+				if(lectorAMultar.getMulta() != null && !lectorAMultar.getMulta().getInicio().equals(hoy)) {
+					this.multaService.saveMulta(multa);
+					lectorAMultar.setMulta(multa);
+					this.lectorService.editarLector(lectorAMultar);
+				}
+				
+				
 			}
 		}
 		
