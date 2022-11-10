@@ -1,0 +1,11 @@
+"isbn";"anyo";"editorial";"tipo";"titulo";"fk_autor"
+1;"2000-04-11";"Anaya";"novela";"El cantar";1
+2;"2003-03-01";"Santillana";"teatro";"La comedia";2
+3;"2005-03-06";"Gernika";"poesia";"El poema sinfin";3
+4;"2002-05-03";"Santillana";"novela";"La estacion";2
+5;"2002-05-03";"Anaya";"poesia";"El frente";3
+6;"2001-05-03";"Santillana";"novela";"Sanson";2
+7;"2002-05-03";"Gernika";"teatro";"Rene";1
+8;"2004-05-11";"Anaya";"teatro";"Qwerty";3
+9;"2002-06-03";"Gernika";"novela";"Fronteras";2
+10;"2005-04-03";"Anaya";"poesia";"Tenaza";2
