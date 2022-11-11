@@ -63,13 +63,14 @@ public class LibroController {
 				Multa multa = new Multa(hoy,finMulta);
 				
 				Lector lectorAMultar = p.getLector();
-				
+				// si no tiene multa se le impone
 				if(lectorAMultar.getMulta() == null) {
 					
 					this.multaService.saveMulta(multa);
 					lectorAMultar.setMulta(multa);
 					this.lectorService.editarLector(lectorAMultar);
 				}
+				// si tiene ya una multa con el dia de hoy no se le impone otra
 				if(lectorAMultar.getMulta() != null && !lectorAMultar.getMulta().getInicio().equals(hoy)) {
 					this.multaService.saveMulta(multa);
 					lectorAMultar.setMulta(multa);
